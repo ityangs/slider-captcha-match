@@ -42,6 +42,6 @@ class TestSlideMatch:
 if __name__ == '__main__':
     match = TestSlideMatch()
     # 测试通过路径获取滑块偏移量
-    match.test_get_slider_offset_with_paths()
+    # match.test_get_slider_offset_with_paths()
     # 测试通过base64编码获取滑块偏移量
-    # match.test_get_slider_offset_with_base64()
+    match.test_get_slider_offset_with_base64()

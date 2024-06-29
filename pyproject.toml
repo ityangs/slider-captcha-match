@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "slider-captcha-match"
+version = "1.0.0"
+description = "A package to find the offset of a slider in a background image."
+authors = ["ityangs <ityangs@163.com>"]
+license = "Apache License 2.0"
+readme = "README.md"
+packages = [
+    { include = "slide_match", from = "src" }
+]
+include = ["src/data/*"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+numpy = "^1.21"
+opencv-python = "^4.5"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

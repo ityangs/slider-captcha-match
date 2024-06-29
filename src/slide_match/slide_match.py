@@ -5,7 +5,6 @@ from typing import Union, Optional
 import cv2
 import numpy as np
 
-
 class SlideMatch:
     def __init__(self,
                  gaussian_blur_kernel_size=(5, 5),
@@ -138,10 +137,6 @@ class SlideMatch:
         else:
             raise ValueError("image_source must be a file path or base64 encoded bytes")
 
-
-
-
-
     def get_slider_offset(self, background_source: Union[str, bytes], slider_source: Union[str, bytes]) -> int:
         """
         获取滑块的偏移量
@@ -152,6 +147,13 @@ class SlideMatch:
         """
         background_image = self._read_image(background_source)
         slider_image = self._read_image(slider_source, cv2.IMREAD_UNCHANGED)
+
+        if background_image is None:
+            raise ValueError("Failed to read background image")
+
+        if slider_image is None:
+            raise ValueError("Failed to read slider image")
+
         slider_image_no_alpha = self._remove_alpha_channel(slider_image)
         image_height, image_width, _ = background_image.shape
 
