@@ -5,9 +5,8 @@
 Slider Captcha Match 是一个基于 Python 和 OpenCV 的滑块验证码匹配工具，旨在通过对比滑块和背景图像来计算滑块的正确偏移量。该项目主要用于验证图像处理和匹配算法。
 
 ## 目录结构
-
+```bash
 .
-
 ├── src
 │ ├── data
 │ │ ├── bg3.jpeg # 背景图像
@@ -20,7 +19,7 @@ Slider Captcha Match 是一个基于 Python 和 OpenCV 的滑块验证码匹配�
 │ │ └── test_slide_match.py # 测试代码
 │ ├── requirements.txt
 ├── README.md
-
+```
 
 ## 安装
 
@@ -67,7 +66,7 @@ background_base64 = "..."  # base64 编码的背景图像
 slider_base64 = "..."  # base64 编码的滑块图像
 offset = processor.get_slider_offset(background_base64, slider_base64)
 print(f"Offset (base64): {offset}")
-
+```
 
 
 ### 测试
@@ -79,6 +78,7 @@ print(f"Offset (base64): {offset}")
 
 ```bash
 python src/test/test_slide_match.py
+```
 
 ## 贡献
 > 如果你有兴趣为本项目做贡献，请遵循以下步骤：
@@ -89,7 +89,7 @@ python src/test/test_slide_match.py
 3. 提交你的修改 (`git commit -am 'Add some fooBar'`)
 4. 推送到分支 (`git push origin feature/fooBar`)
 5. 创建一个新的 Pull Request
-
+```
 
 ## 许可证
 此项目基于 MIT 许可证，详情请参阅 LICENSE 文件。
