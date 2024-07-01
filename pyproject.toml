@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "slider-captcha-match"
-version = "1.0.3"
+version = "1.0.4"
 description = "Slider Captcha Match 是一个基于 Python 和 OpenCV 的滑块验证码匹配工具，旨在通过对比滑块和背景图像来计算滑块的正确偏移量。该项目主要用于验证图像处理和匹配算法。"
 authors = ["ityangs <ityangs@163.com>"]
 license = "Apache License 2.0"

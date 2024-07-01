@@ -1,1 +1,1 @@
-from .slide_captcha_match import SlideCaptchaMatch
+from .slider_captcha_match import SliderCaptchaMatch

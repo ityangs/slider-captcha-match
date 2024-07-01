@@ -1,9 +1,7 @@
 import base64
 
-from src.slide_captcha_match import SlideCaptchaMatch
 
-
-class TestSlideMatch:
+class TestSliderMatch:
 
     def __init__(self):
         """

@@ -16,10 +16,10 @@ Slider Captcha Match 是一个基于 Python 和 OpenCV 的滑块验证码匹配�
 ├── requirements.txt
 ├── src
 │   ├── __init__.py
-│   └── slide_captcha_match.py
+│   └── slider_captcha_match.py
 └── tests
     ├── __pycache__
-    └── test_slide_match.py
+    └── test_slider_match.py
 
 ```
 
@@ -55,9 +55,9 @@ pip install -r requirements.txt
 SlideCaptchaMatch 类包含了进行滑块匹配的核心方法。
 
 ```python
-from src.slide_captcha_match import SlideCaptchaMatch
+from src.slider_captcha_match import SliderCaptchaMatch
 
-processor = SlideCaptchaMatch(save_images=True, output_path="output")
+processor = SliderCaptchaMatch(save_images=True, output_path="output")
 
 # 通过图像路径获取滑块偏移量
 offset = processor.get_slider_offset("data/bg3.jpeg", "data/slider3.png")
@@ -79,7 +79,7 @@ print(f"Offset (base64): {offset}")
 可以直接运行测试文件来查看效果：
 
 ```bash
-python tests/test_slide_match.py
+python tests/test_slider_match.py
 ```
 
 ## 贡献

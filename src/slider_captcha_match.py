@@ -6,7 +6,7 @@ import cv2
 import numpy as np
 
 
-class SlideCaptchaMatch:
+class SliderCaptchaMatch:
     def __init__(self,
                  gaussian_blur_kernel_size=(5, 5),
                  gaussian_blur_sigma_x=0,
@@ -152,6 +152,9 @@ class SlideCaptchaMatch:
                 else:
                     return cv2.imread(image_source)
             elif self._is_base64(image_source):  # 如果是 base64 编码
+                # Strip out data URI scheme if present
+                if "data:" in image_source and ";" in image_source:
+                    image_source = image_source.split(",")[1]
                 img_data = base64.b64decode(image_source)
                 img_array = np.frombuffer(img_data, np.uint8)
                 if imread_flag is not None:
