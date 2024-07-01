@@ -7,18 +7,20 @@ Slider Captcha Match 是一个基于 Python 和 OpenCV 的滑块验证码匹配�
 ## 目录结构
 ```bash
 .
-├── src
-│ ├── data
-│ │ ├── bg3.jpeg # 背景图像
-│ │ ├── slider3.png # 滑块图像
-│ │ ├── output # 生成的输出图像
-│ ├── slide_match
-│ │ ├── init.py
-│ │ └── slide_match.py # 核心算法实现
-│ └── test
-│ │ └── test_slide_match.py # 测试代码
-│ ├── requirements.txt
 ├── README.md
+├── data
+│   ├── bg3.jpeg
+│   ├── output
+│   └── slider3.png
+├── pyproject.toml
+├── requirements.txt
+├── src
+│   ├── __init__.py
+│   └── slide_captcha_match.py
+└── tests
+    ├── __pycache__
+    └── test_slide_match.py
+
 ```
 
 ## 安装
@@ -48,14 +50,14 @@ pip install -r requirements.txt
 
 ## 使用说明
 
-### 核心类 SlideMatch
+### 核心类 SlideCaptchaMatch
 
-SlideMatch 类包含了进行滑块匹配的核心方法。
+SlideCaptchaMatch 类包含了进行滑块匹配的核心方法。
 
 ```python
-from slide_match.slide_match import SlideMatch
+from src.slide_captcha_match import SlideCaptchaMatch
 
-processor = SlideMatch(save_images=True, output_path="output")
+processor = SlideCaptchaMatch(save_images=True, output_path="output")
 
 # 通过图像路径获取滑块偏移量
 offset = processor.get_slider_offset("data/bg3.jpeg", "data/slider3.png")
@@ -71,13 +73,13 @@ print(f"Offset (base64): {offset}")
 
 ### 测试
 
-项目包含基本的测试代码，测试代码位于 src/test/test_slide_match.py 中，包含了两种测试方法：
+项目包含基本的测试代码，测试代码位于 tests/test_slide_match.py 中，包含了两种测试方法：
 通过路径获取滑块偏移量。
 通过 base64 编码获取滑块偏移量。
 可以直接运行测试文件来查看效果：
 
 ```bash
-python src/test/test_slide_match.py
+python tests/test_slide_match.py
 ```
 
 ## 贡献

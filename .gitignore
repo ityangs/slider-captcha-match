@@ -41,7 +41,7 @@ logs
 /../.DS_Store
 /.DS_Store
 /__pycache__/
-src/data/.DS_Store
+data/.DS_Store
 src/feishusdk/.DS_Store
 src/feishusdk/__pycache__/
 src/.DS_Store
@@ -50,3 +50,12 @@ src/__pycache__/
 src/utils/__pycache__/*
 src/business_model/__pycache__/*
 .history/*
+/../.DS_Store
+/.DS_Store
+/__pycache__/
+data/.DS_Store
+src/feishusdk/.DS_Store
+src/feishusdk/__pycache__/
+src/.DS_Store
+src/__pycache__/
+.pytest_cache

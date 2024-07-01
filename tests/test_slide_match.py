@@ -1,9 +1,6 @@
 import base64
-import os
-import sys
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from slide_match.slide_match import SlideMatch
+from src.slide_captcha_match import SlideCaptchaMatch
 
 
 class TestSlideMatch:
@@ -15,7 +12,7 @@ class TestSlideMatch:
         self.background_path = "../data/bg3.jpeg"
         self.slider_path = "../data/slider3.png"
         self.output_path = "../data/output"
-        self.processor = SlideMatch(save_images=True, output_path=self.output_path)
+        self.processor = SlideCaptchaMatch(save_images=True, output_path=self.output_path)
 
         # 将图像读取为base64编码
         with open(self.background_path, "rb") as bg_file:
@@ -42,6 +39,6 @@ class TestSlideMatch:
 if __name__ == '__main__':
     match = TestSlideMatch()
     # 测试通过路径获取滑块偏移量
-    # match.test_get_slider_offset_with_paths()
+    match.test_get_slider_offset_with_paths()
     # 测试通过base64编码获取滑块偏移量
     match.test_get_slider_offset_with_base64()

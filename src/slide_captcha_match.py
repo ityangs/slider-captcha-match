@@ -5,7 +5,8 @@ from typing import Union, Optional
 import cv2
 import numpy as np
 
-class SlideMatch:
+
+class SlideCaptchaMatch:
     def __init__(self,
                  gaussian_blur_kernel_size=(5, 5),
                  gaussian_blur_sigma_x=0,
@@ -114,6 +115,28 @@ class SlideMatch:
         offset_max = 0.85 * image_width
         return offset_min, offset_max
 
+    def _is_image_file(self, file_path: str) -> bool:
+        """
+        检查字符串是否是有效的图像文件路径
+        """
+        valid_extensions = ('.jpg', '.jpeg', '.png', '.bmp', '.gif', '.tiff')
+        return os.path.isfile(file_path) and file_path.lower().endswith(valid_extensions)
+
+    def _is_base64(self, s: str) -> bool:
+        """
+        检查字符串是否是有效的 base64 编码
+        """
+        try:
+            if isinstance(s, str):
+                # Strip out data URI scheme if present
+                if "data:" in s and ";" in s:
+                    s = s.split(",")[1]
+                base64.b64decode(s)
+                return True
+            return False
+        except Exception:
+            return False
+
     def _read_image(self, image_source: Union[str, bytes], imread_flag: Optional[int] = None) -> np.ndarray:
         """
         读取图像
@@ -123,19 +146,25 @@ class SlideMatch:
         :return: 读取的图像
         """
         if isinstance(image_source, str):
-            if imread_flag is not None:
-                return cv2.imread(image_source, imread_flag)
+            if self._is_image_file(image_source):  # 如果是文件路径
+                if imread_flag is not None:
+                    return cv2.imread(image_source, imread_flag)
+                else:
+                    return cv2.imread(image_source)
+            elif self._is_base64(image_source):  # 如果是 base64 编码
+                img_data = base64.b64decode(image_source)
+                img_array = np.frombuffer(img_data, np.uint8)
+                if imread_flag is not None:
+                    image = cv2.imdecode(img_array, imread_flag)
+                else:
+                    image = cv2.imdecode(img_array, cv2.IMREAD_UNCHANGED)
+                if image is None:
+                    raise ValueError("Failed to decode base64 image")
+                return image
             else:
-                return cv2.imread(image_source)
-        elif isinstance(image_source, bytes):
-            img_data = base64.b64decode(image_source)
-            img_array = np.frombuffer(img_data, np.uint8)
-            if imread_flag is not None:
-                return cv2.imdecode(img_array, imread_flag)
-            else:
-                return cv2.imdecode(img_array, cv2.IMREAD_UNCHANGED)
+                raise ValueError("The provided string is neither a valid file path nor a valid base64 string")
         else:
-            raise ValueError("image_source must be a file path or base64 encoded bytes")
+            raise ValueError("image_source must be a file path or base64 encoded string")
 
     def get_slider_offset(self, background_source: Union[str, bytes], slider_source: Union[str, bytes]) -> int:
         """
