@@ -1,5 +1,7 @@
 import base64
 
+from src import SliderCaptchaMatch
+
 
 class TestSliderMatch:
 
@@ -7,10 +9,15 @@ class TestSliderMatch:
         """
         测试前的初始化操作
         """
-        self.background_path = "../data/bg3.jpeg"
-        self.slider_path = "../data/slider3.png"
+        self.background_path = "../data/bg8.jpeg"
+        self.slider_path = "../data/slider8.png"
         self.output_path = "../data/output"
-        self.processor = SlideCaptchaMatch(save_images=True, output_path=self.output_path)
+        self.processor = SliderCaptchaMatch(
+            save_images=True,
+            output_path=self.output_path,
+            gaussian_blur_kernel_size=(1, 1),
+            gaussian_blur_sigma_x=1,
+        )
 
         # 将图像读取为base64编码
         with open(self.background_path, "rb") as bg_file:
@@ -35,7 +42,7 @@ class TestSliderMatch:
 
 
 if __name__ == '__main__':
-    match = TestSlideMatch()
+    match = TestSliderMatch()
     # 测试通过路径获取滑块偏移量
     match.test_get_slider_offset_with_paths()
     # 测试通过base64编码获取滑块偏移量

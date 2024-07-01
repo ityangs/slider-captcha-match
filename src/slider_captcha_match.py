@@ -1,5 +1,6 @@
 import base64
 import os
+from datetime import datetime
 from typing import Union, Optional
 
 import cv2
@@ -152,7 +153,7 @@ class SliderCaptchaMatch:
                 else:
                     return cv2.imread(image_source)
             elif self._is_base64(image_source):  # 如果是 base64 编码
-                # Strip out data URI scheme if present
+                # 剥离数据URI方案（如果存在）
                 if "data:" in image_source and ";" in image_source:
                     image_source = image_source.split(",")[1]
                 img_data = base64.b64decode(image_source)
@@ -169,16 +170,19 @@ class SliderCaptchaMatch:
         else:
             raise ValueError("image_source must be a file path or base64 encoded string")
 
-    def get_slider_offset(self, background_source: Union[str, bytes], slider_source: Union[str, bytes]) -> int:
+    def get_slider_offset(self, background_source: Union[str, bytes], slider_source: Union[str, bytes],
+                          out_file_name: str = None) -> int:
         """
         获取滑块的偏移量
 
         :param background_source: 背景图像路径或base64编码
         :param slider_source: 滑块图像路径或base64编码
+        :param out_file_name: 输出图片的文件名: 默认为当前时间戳
         :return: 滑块的偏移量
         """
         background_image = self._read_image(background_source)
         slider_image = self._read_image(slider_source, cv2.IMREAD_UNCHANGED)
+        out_file_name = out_file_name if out_file_name else datetime.now().strftime('%Y%m%d%H%M%S.%f')[:-3]
 
         if background_image is None:
             raise ValueError("Failed to read background image")
@@ -197,8 +201,8 @@ class SliderCaptchaMatch:
             # 创建输出目录
             if not os.path.exists(self.output_path):
                 os.makedirs(self.output_path)
-            cv2.imwrite(f'{self.output_path}/image_canny.png', image_canny)
-            cv2.imwrite(f'{self.output_path}/image_gaussian_blur.png', image_gaussian_blur)
+            cv2.imwrite(os.path.join(self.output_path, f'{out_file_name}_image_canny.png'), image_canny)
+            cv2.imwrite(os.path.join(self.output_path, f'{out_file_name}_image_gaussian_blur.png'), image_gaussian_blur)
 
         contour_area_min, contour_area_max = self._get_contour_area_threshold(image_width, image_height)
         arc_length_min, arc_length_max = self._get_arc_length_threshold(image_width, image_height)
@@ -224,6 +228,6 @@ class SliderCaptchaMatch:
                       (255, 0, 0), 2)
 
         if self.save_images:
-            cv2.imwrite(f'{self.output_path}/image_label.png', background_image)
+            cv2.imwrite(os.path.join(self.output_path, f'{out_file_name}_image_label.png'), background_image)
 
         return offset
