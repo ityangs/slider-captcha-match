@@ -5,6 +5,11 @@ description = "Slider Captcha Match 是一个基于 Python 和 OpenCV 的滑块�
 authors = ["ityangs <ityangs@163.com>"]
 license = "Apache License 2.0"
 readme = "README.md"
+# 其他配置...
+packages = [
+    { include = "*", from = "src" }
+]
+
 
 [tool.poetry.dependencies]
 python = "^3.8"
