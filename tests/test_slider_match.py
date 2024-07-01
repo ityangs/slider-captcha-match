@@ -9,14 +9,12 @@ class TestSliderMatch:
         """
         测试前的初始化操作
         """
-        self.background_path = "../data/bg8.jpeg"
-        self.slider_path = "../data/slider8.png"
+        self.background_path = "../data/bg3.jpeg"
+        self.slider_path = "../data/slider3.png"
         self.output_path = "../data/output"
         self.processor = SliderCaptchaMatch(
             save_images=True,
             output_path=self.output_path,
-            gaussian_blur_kernel_size=(1, 1),
-            gaussian_blur_sigma_x=1,
         )
 
         # 将图像读取为base64编码
