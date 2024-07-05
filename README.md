@@ -52,7 +52,7 @@ pip install -r requirements.txt
 
 ### 核心类 SlideCaptchaMatch
 
-SlideCaptchaMatch 类包含了进行滑块匹配的核心方法。
+#### 方法1：SlideCaptchaMatch 类包含了进行滑块匹配的核心方法。
 
 ```python
 from src.slider_captcha_match import SliderCaptchaMatch
@@ -70,6 +70,42 @@ offset = processor.get_slider_offset(background_base64, slider_base64)
 print(f"Offset (base64): {offset}")
 ```
 
+#### 方法2：
+
+1. 安装依赖：要运行上述代码，需要安装以下 Python 库：
+
+```base
+pip install numpy opencv-python slider_captcha_match
+```
+
+2. 在安装完所需库后，您可以按照以下步骤使用滑块验证码匹配功能：
+
+- 初始化SliderCaptchaMatch类：配置高斯模糊、Canny边缘检测等参数。
+- 读取背景图像和滑块图像：可以是文件路径或base64编码。
+- 获取滑块偏移量：调用get_slider_offset函数，返回滑块的准确偏移量。
+
+```python
+
+from slider_captcha_match import SliderCaptchaMatch
+from datetime import datetime
+import cv2
+
+# 初始化 SliderCaptchaMatch 类
+slider_captcha_match = SliderCaptchaMatch(save_images=True, output_path="output")
+
+# 读取背景图像和滑块图像
+background_source = "path_to_background_image.jpg"
+slider_source = "path_to_slider_image.png"
+
+# 获取滑块偏移量
+offset = slider_captcha_match.get_slider_offset(background_source, slider_source)
+print(f"滑块偏移量: {offset}")
+
+# 输出结果保存路径
+out_file_name = datetime.now().strftime('%Y%m%d%H%M%S.%f')[:-3]
+print(f"结果图像保存路径: output/{out_file_name}_image_label.png")
+
+```
 
 ### 测试
 
